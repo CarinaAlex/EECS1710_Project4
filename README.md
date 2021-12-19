@@ -11,7 +11,8 @@ Use the first line on your keyboard to play this digital instrument.
 
 The following keys have been assigned to particular notes: 
 
-` = C
+
+\` = C
 1 = C#
 2 = D
 3 = D#
@@ -22,5 +23,5 @@ The following keys have been assigned to particular notes:
 8 = G#
 9 = A
 0 = A#
-- = B
-= = C (octave up)
+\- = B
+\= = C (octave up)
