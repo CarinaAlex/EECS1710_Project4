@@ -22,6 +22,7 @@ void setup() {
 
 void draw() {
   stroke(255);
+  background(0);
   
   // if left mouse button is clicked, apply a frequency-modulated vibrato
   // the X value of the mouse location increases the amplitude (intensity) of the vibrato
