@@ -1,18 +1,6 @@
 class Ratios{
-    
-  //float m2 = 16.0/15.0;
-  //float M2 = 9.0/8.0;
-  //float m3 = 6.0/5.0;
-  //float M3 = 5.0/4.0;
-  //float p4 = 4.0/3.0;
-  //float tt = 45.0/32.0;
-  //float p5 = 3.0/2.0;
-  //float m6 = 8.0/5.0;
-  //float M6 = 5.0/3.0;
-  //float m7 = 16.0/9.0;
-  //float M7 = 15.0/8.0;
-  //float oct = 2.0;
   
+  // frequency ratios for all 12 notes in the western musical scale
   float m2 = 1.05946;
   float M2 = 1.12246;
   float m3 = 1.18921;
@@ -26,6 +14,7 @@ class Ratios{
   float M7 = 1.88775;
   float oct = 2.0;
   
+  // math constant
   float one_over_log_twelfth_root_2 = 39.8631371386;
   
   Ratios() {
@@ -39,22 +28,28 @@ class Ratios{
     return (int)(((play_freq - base_freq) / base_freq) * 255);
   }
   
+  // takes in frequency in Hertz and returns a normalized continuous note score between 0 and 12
   float freq_to_norm_note(float freq){
-    //float piano_key_approx = one_over_log_twelfth_root_2 * log10(freq / 440.0) + 45;
     float piano_key_approx = 12 * log2(freq / 440.0) + 46;
-    //float piano_key_approx = 12 * log2(freq / 261.6256);
     return (piano_key_approx) % 12;
   }
   
+  // log base 2
   float log2(float x) {
   return (log(x) / log(2));
   }
   
+  // get Scriabin color from normalized note score
   color get_color_from_freq(float freq){
     float norm_note = freq_to_norm_note(freq);
     return color(map_norm_note_red_channel(norm_note), map_norm_note_green_channel(norm_note), map_norm_note_blue_channel(norm_note));
   }
   
+  // Scriabin colors are generated using 12 unique piecewise linear functions (for all 3 channels, 36 total functions)
+  // These functions take a normalized note score between 0 and 12 (floating point)
+  // When the note score is a whole number, you get exact Scriabin colors
+  // When the note scores are between whole numbers, you get transitional Scriabin colors
+  // Scriabin color generator from normalized not value (float from 0 to 11.99) for red channel
   int map_norm_note_red_channel(float norm_note){
     int red_ch = 0;
     if((norm_note > 0) && (norm_note < 1)) red_ch = (int)(226 * norm_note) + 4;
@@ -72,6 +67,7 @@ class Ratios{
     return red_ch;
   }
   
+  // Scriabin color generator from normalized not value (float from 0 to 11.99) for green channel
   int map_norm_note_green_channel(float norm_note){
     int green_ch = 0;
     if((norm_note > 0) && (norm_note < 1)) green_ch = (int)(7 * norm_note) + 11;
@@ -89,6 +85,7 @@ class Ratios{
     return green_ch;
   }
   
+  // Scriabin color generator from normalized not value (float from 0 to 11.99) for blue channel
   int map_norm_note_blue_channel(float norm_note){
     int blue_ch = 0;
     if((norm_note > 0) && (norm_note < 1)) blue_ch = (int)(-183 * norm_note) + 201;
